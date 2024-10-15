@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace CosmicCuration.Bullets
 {
 	public class BulletPool
 	{
-		private BulletView bulletView;
+		private Transform bulletParents;
+        private BulletView bulletView;
 		private BulletScriptableObject bulletScriptableObject;
 		private List<PooledBullet> pooledBullets = new List<PooledBullet>();
 
 
-		public BulletPool(BulletView bulletView, BulletScriptableObject bulletScriptableObject)
+		public BulletPool(BulletView bulletView, BulletScriptableObject bulletScriptableObject, Transform bulletParents)
 		{
 			this.bulletView = bulletView;
 			this.bulletScriptableObject = bulletScriptableObject;
+			this.bulletParents = bulletParents;
 		}
 
 		public BulletController GetBullet()
@@ -38,7 +41,7 @@ namespace CosmicCuration.Bullets
 		{
 			PooledBullet pooledBullet =  new PooledBullet();
 			pooledBullet.isUsed = true;
-			pooledBullet.Bullet = new BulletController(bulletView,bulletScriptableObject);
+			pooledBullet.Bullet = new BulletController(bulletView,bulletScriptableObject, bulletParents);
 			pooledBullets.Add(pooledBullet);
 			return pooledBullet .Bullet;
 		}

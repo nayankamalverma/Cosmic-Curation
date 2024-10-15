@@ -18,15 +18,16 @@ namespace CosmicCuration.Enemy
         private float movementTimer;
         private Quaternion targetRotation;
 
-        public EnemyController(EnemyView enemyPrefab, EnemyData enemyData)
+        public EnemyController(EnemyView enemyPrefab, EnemyData enemyData, Transform enemyParent)
         {
-            enemyView = Object.Instantiate(enemyPrefab);
+            enemyView = Object.Instantiate(enemyPrefab, enemyParent);
             enemyView.SetController(this);
             this.enemyData = enemyData;
         }
 
         public void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
         {
+            enemyView.gameObject.SetActive(true);
             enemyView.transform.position = positionToSet;
             SetEnemyOrientation(enemyOrientation);
             
@@ -106,7 +107,8 @@ namespace CosmicCuration.Enemy
             GameService.Instance.GetUIService().IncrementScore(enemyData.scoreToGrant);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.EnemyDeath);
             GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.EnemyExplosion, enemyView.transform.position);
-            Object.Destroy(enemyView.gameObject);
+            GameService.Instance.GetEnemyService().ReturnEnemyToPool(this);
+            enemyView.gameObject.SetActive(false);
         }
 
         private enum EnemyState

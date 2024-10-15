@@ -9,9 +9,9 @@ namespace CosmicCuration.Bullets
         private BulletView bulletView;
         private BulletScriptableObject bulletScriptableObject;
 
-        public BulletController(BulletView bulletViewPrefab, BulletScriptableObject bulletScriptableObject)
+        public BulletController(BulletView bulletViewPrefab, BulletScriptableObject bulletScriptableObject,Transform bulletParent)
         {
-            bulletView = Object.Instantiate(bulletViewPrefab);
+            bulletView = Object.Instantiate(bulletViewPrefab, bulletParent);
             bulletView.SetController(this);
             this.bulletScriptableObject = bulletScriptableObject;
         }
