@@ -25,6 +25,7 @@ namespace CosmicCuration.Player
             playerView = Object.Instantiate(playerViewPrefab);
             playerView.SetController(this);
             this.bulletPool = bulletPool;
+            this.playerScriptableObject = playerScriptableObject;
 
             InitializeVariables();
         }
