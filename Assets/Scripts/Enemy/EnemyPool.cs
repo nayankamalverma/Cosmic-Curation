@@ -1,6 +1,4 @@
 using CosmicCuration.Utilities;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace CosmicCuration.Enemy
 {
@@ -18,11 +16,5 @@ namespace CosmicCuration.Enemy
         public EnemyController GetEnemy() => GetItem();
 
         protected override EnemyController CreateItem() => new EnemyController(enemyPrefab, enemyData);
-
-        public class PooledEnemy
-        {
-            public EnemyController Enemy;
-            public bool isUsed;
-        }
     }
 }
