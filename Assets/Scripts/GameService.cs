@@ -38,7 +38,6 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private EnemyScriptableObject enemyScriptableObject;
     [SerializeField] private PowerUpScriptableObject powerUpScriptableObject;
     [SerializeField] private SoundScriptableObject soundScriptableObject;
-    [SerializeField] private VFXScriptableObject vfxScriptableObject;
     #endregion
 
     #region Scene References
