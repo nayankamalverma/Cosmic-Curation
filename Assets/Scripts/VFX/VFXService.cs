@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CosmicCuration.VFX
@@ -7,7 +6,7 @@ namespace CosmicCuration.VFX
     {
         private VFXPool vfxPool;
 
-        public VFXService(VFXView vfxPrefab)=> vfxPool = new VFXPool(vfxPrefab);
+        public VFXService(VFXView vfxPrefab) => vfxPool = new VFXPool(vfxPrefab);
 
         public void PlayVFXAtPosition(VFXType type, Vector2 spawnPosition)
         {
@@ -15,6 +14,6 @@ namespace CosmicCuration.VFX
             vfxToPlay.Configure(type, spawnPosition);
         }
 
-        public void ReturnVFXToPool(VFXController vfxToReturn)=> vfxPool.ReturnItem(vfxToReturn);
-    } 
+        public void ReturnVFXToPool(VFXController vfxToReturn) => vfxPool.ReturnItem(vfxToReturn);
+    }
 }
