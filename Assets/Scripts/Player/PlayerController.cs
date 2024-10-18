@@ -11,8 +11,7 @@ namespace CosmicCuration.Player
         // Dependencies
         private PlayerView playerView;
         private PlayerScriptableObject playerScriptableObject;
-        private BulletView bulletPrefab;
-        private BulletScriptableObject bulletScriptableObject;
+        private BulletPool bulletPool;
 
         private WeaponMode currentWeaponMode;
         private ShootingState currentShootingState;
@@ -20,14 +19,12 @@ namespace CosmicCuration.Player
         private int currentHealth;
         private float currentRateOfFire;
 
-
-        public PlayerController(PlayerView playerViewPrefab, PlayerScriptableObject playerScriptableObject, BulletView bulletPrefab, BulletScriptableObject bulletScriptableObject)
+        public PlayerController(PlayerView playerViewPrefab, PlayerScriptableObject playerScriptableObject, BulletPool bulletPool)
         {
             playerView = Object.Instantiate(playerViewPrefab);
             playerView.SetController(this);
             this.playerScriptableObject = playerScriptableObject;
-            this.bulletPrefab = bulletPrefab;
-            this.bulletScriptableObject = bulletScriptableObject;
+            this.bulletPool = bulletPool;
 
             InitializeVariables();
         }
@@ -95,11 +92,12 @@ namespace CosmicCuration.Player
         }
 
         private void FireBulletAtPosition(Transform fireLocation)
-        {
-            BulletController bulletToFire = new BulletController(bulletPrefab, bulletScriptableObject);
+        { 
+            BulletController bulletToFire = bulletPool.GetBullet();
             bulletToFire.ConfigureBullet(fireLocation);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerBullet);
-        }
+        } 
+      
         public void SetShieldState(ShieldState shieldStateToSet) => currentShieldState = shieldStateToSet;
 
         public void ToggleDoubleTurret(bool doubleTurretActive) => currentWeaponMode = doubleTurretActive ? WeaponMode.DoubleTurret : WeaponMode.SingleCanon;
