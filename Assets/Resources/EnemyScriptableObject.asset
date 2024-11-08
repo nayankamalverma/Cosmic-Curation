@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDistance: 2
   initialSpawnRate: 3
-  minimumSpawnRate: 0.5
+  minimumSpawnRate: 0.6
   difficultyDelta: 0.05
   enemyData:
     maxHealth: 3
@@ -23,5 +23,5 @@ MonoBehaviour:
     damageToInflict: 1
     scoreToGrant: 5
     movementDuration: 5
-    rotationSpeed: 50
+    rotationSpeed: 200
     rotationTolerance: 2

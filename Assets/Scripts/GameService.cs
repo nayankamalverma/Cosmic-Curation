@@ -20,7 +20,6 @@ public class GameService : GenericMonoSingleton<GameService>
     private EnemyService enemyService;
     private PowerUpService powerUpService;
     private VFXService vfxService;
-    private SoundService soundService;
     [SerializeField] private UIView uiService;
 
     #endregion
@@ -29,6 +28,7 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private PlayerView playerPrefab;
     [SerializeField] private BulletView playerBulletPrefab;
     [SerializeField] private EnemyView enemyPrefab;
+    [SerializeField] private VFXView vfxPrefab;
     #endregion
 
     #region Scriptable Objects
@@ -36,23 +36,16 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private BulletScriptableObject playerBulletScriptableObject;
     [SerializeField] private EnemyScriptableObject enemyScriptableObject;
     [SerializeField] private PowerUpScriptableObject powerUpScriptableObject;
-    [SerializeField] private SoundScriptableObject soundScriptableObject;
-    [SerializeField] private VFXScriptableObject vfxScriptableObject;
     #endregion
 
-    #region Scene References
-    [SerializeField] private AudioSource audioEffectSource;
-    [SerializeField] private AudioSource backgroundMusicSource;
-    #endregion
 
     private void Start()
     {
         // Initialize all Services.
-        soundService = new SoundService(soundScriptableObject, audioEffectSource, backgroundMusicSource);
         playerService = new PlayerService(playerPrefab, playerScriptableObject, playerBulletPrefab, playerBulletScriptableObject);
         powerUpService = new PowerUpService(powerUpScriptableObject);
         enemyService = new EnemyService(enemyPrefab, enemyScriptableObject);
-        vfxService = new VFXService(vfxScriptableObject);
+        vfxService = new VFXService(vfxPrefab);
     }
 
     private void Update()
@@ -69,8 +62,6 @@ public class GameService : GenericMonoSingleton<GameService>
     public PowerUpService GetPowerUpService() => powerUpService;
 
     public VFXService GetVFXService() => vfxService;
-
-    public SoundService GetSoundService() => soundService;
 
     public UIView GetUIService() => uiService; 
     #endregion

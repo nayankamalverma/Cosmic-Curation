@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,8 +35,14 @@ namespace CosmicCuration.UI
 
         public void UpdateHealthUI(int healthToDisplay) => healthText.SetText(healthToDisplay.ToString());
 
-        public void EnableGameOverUI()
+        public void EnableGameOverUI(float delay)
         {
+            StartCoroutine(EnableGameOverUICorutine(delay));
+        }
+
+        private IEnumerator EnableGameOverUICorutine(float delay)
+        {
+            yield return new WaitForSeconds(delay);
             gameplayPanel.SetActive(false);
             gameOverPanel.SetActive(true);
             playAgainButton.onClick.AddListener(OnPlayAgainClicked);

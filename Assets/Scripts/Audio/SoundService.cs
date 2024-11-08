@@ -1,53 +1,66 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CosmicCuration.Audio
 {
-    public class SoundService
-    {
-        private SoundScriptableObject soundScriptableObject;
-        private AudioSource audioEffects;
+	public class SoundService : MonoBehaviour
+	{
+        private static SoundService instance;
+        public static SoundService Instance => instance;
+
+        [SerializeField]
         private AudioSource backgroundMusic;
+        [SerializeField]
+        private AudioSource soundEffect;
+        [SerializeField]
+        private SoundScriptableObject soundScriptableObject;
 
-        public SoundService(SoundScriptableObject soundScriptableObject, AudioSource audioEffectSource, AudioSource bgMusicSource)
+        private void Awake()
         {
-            this.soundScriptableObject = soundScriptableObject;
-            audioEffects = audioEffectSource;
-            backgroundMusic = bgMusicSource;
-            PlaybackgroundMusic(SoundType.BackgroundMusic, true);
-        }
-
-        public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
-        {
-            AudioClip clip = GetSoundClip(soundType);
-            if (clip != null)
+            if (instance == null)
             {
-                audioEffects.loop = loopSound;
-                audioEffects.clip = clip;
-                audioEffects.PlayOneShot(clip);
+                instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
-                Debug.LogError("No Audio Clip selected.");
+            {
+                Destroy(gameObject);
+            }
         }
 
-        private void PlaybackgroundMusic(SoundType soundType, bool loopSound = false)
+        private void Start()
+        {
+            PlayBackgroundMusic(SoundType.BackgroundMusic);
+        }
+
+        public void Play(SoundType soundType)
         {
             AudioClip clip = GetSoundClip(soundType);
             if (clip != null)
             {
-                backgroundMusic.loop = loopSound;
+                soundEffect.clip = clip;
+                soundEffect.PlayOneShot(clip);
+            }
+            else Debug.Log("Audio clip not found for " + soundType);
+
+        }
+
+        private void PlayBackgroundMusic(SoundType soundType)
+        {
+            AudioClip clip = GetSoundClip(soundType);
+            if (clip != null)
+            {
                 backgroundMusic.clip = clip;
                 backgroundMusic.Play();
             }
-            else
-                Debug.LogError("No Audio Clip selected.");
+            else Debug.LogError("No Audio Clip selected.");
         }
 
         private AudioClip GetSoundClip(SoundType soundType)
         {
-            Sounds st = Array.Find(soundScriptableObject.audioList, item => item.soundType == soundType);
-            if (st.audio != null)
-                return st.audio;
+            Sounds sound = Array.Find(soundScriptableObject.audioList, s => s.soundType == soundType);
+            if(sound.audio != null) return sound.audio;
             return null;
         }
     }
