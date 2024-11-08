@@ -10,6 +10,7 @@ namespace CosmicCuration.PowerUps
         [SerializeField]
         private SpriteRenderer sprite;
         private PowerUpController powerUpController;
+        private bool isPowerUp;
 
         public void SetController(PowerUpController controller) => powerUpController = controller;
 
@@ -19,17 +20,24 @@ namespace CosmicCuration.PowerUps
         {
             sprite.enabled = set;
             collider.enabled = set;
+            isPowerUp = false;
         }
 
         public void DisableAfterSomeTime(float delay)
         {
             SetView(false);
-            StartCoroutine(DisableWhenNotUsed());
+            isPowerUp = true;
+            StartCoroutine(DisableWhenPowerUpFinish(delay));
         }
-        private IEnumerator DisableWhenNotUsed()
+        private IEnumerator DisableWhenPowerUpFinish(float delay)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(delay);
             powerUpController.Deactivate();
+        }
+        public IEnumerator DisableWhenNotUsed(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            if(!isPowerUp) powerUpController.Deactivate();
         }
     } 
 }
