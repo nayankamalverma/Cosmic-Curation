@@ -116,7 +116,7 @@ namespace CosmicCuration.Player
                 PlayerDeath();
         }
 
-        private async void PlayerDeath()
+        private void PlayerDeath()
         {
             Object.Destroy(playerView.gameObject);
 
@@ -128,9 +128,10 @@ namespace CosmicCuration.Player
             GameService.Instance.GetPowerUpService().SetPowerUpSpawning(false);
 
             // Wait for Player Ship Destruction.
-            await Task.Delay(playerScriptableObject.deathDelay * 1000);
-            GameService.Instance.GetUIService().EnableGameOverUI();
+            playerView.WaitForDeathVFX(playerScriptableObject.deathDelay * 1000);
         }
+
+        
 
         public Vector3 GetPlayerPosition() => playerView != null ? playerView.transform.position : default;
 

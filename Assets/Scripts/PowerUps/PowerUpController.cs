@@ -22,14 +22,14 @@ namespace CosmicCuration.PowerUps
             isActive = false;
             powerUpView.transform.position = spawnPosition;
             powerUpView.gameObject.SetActive(true);
+            powerUpView.SetView(true);
         }
 
-        public async void StartTimer()
+        public void StartTimer()
         {
             if (isActive)
             {
-                await Task.Delay(Mathf.RoundToInt(activeDuration * 1000));
-                Deactivate();
+                powerUpView.DisableAfterSomeTime(Mathf.RoundToInt(activeDuration * 1000));
             }
         }
 
@@ -42,13 +42,13 @@ namespace CosmicCuration.PowerUps
         public virtual void Activate()
         {
             isActive = true;
-            powerUpView.gameObject.SetActive(false);
             StartTimer();
         }
 
         public virtual void Deactivate()
         {
             isActive = false;
+            powerUpView.gameObject.SetActive(false);
             GameService.Instance.GetPowerUpService().ReturnPowerUpToPool(this);
         }
     } 
