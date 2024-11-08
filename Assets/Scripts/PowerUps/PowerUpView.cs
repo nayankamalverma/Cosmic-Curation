@@ -21,6 +21,7 @@ namespace CosmicCuration.PowerUps
             sprite.enabled = set;
             collider.enabled = set;
             isPowerUp = false;
+            StartCoroutine(DisableWhenNotUsed(5f));
         }
 
         public void DisableAfterSomeTime(float delay)
@@ -34,7 +35,7 @@ namespace CosmicCuration.PowerUps
             yield return new WaitForSeconds(delay);
             powerUpController.Deactivate();
         }
-        public IEnumerator DisableWhenNotUsed(float delay)
+        private IEnumerator DisableWhenNotUsed(float delay)
         {
             yield return new WaitForSeconds(delay);
             if(!isPowerUp) powerUpController.Deactivate();

@@ -23,7 +23,6 @@ namespace CosmicCuration.PowerUps
             powerUpView.transform.position = spawnPosition;
             powerUpView.gameObject.SetActive(true);
             powerUpView.SetView(true);
-            powerUpView.DisableWhenNotUsed(5f);
         }
 
         public void StartTimer()
