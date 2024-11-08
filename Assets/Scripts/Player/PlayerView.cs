@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CosmicCuration.Player
@@ -17,13 +16,5 @@ namespace CosmicCuration.Player
         private void Update() => playerController.HandlePlayerInput();
 
         public void TakeDamage(int damageToTake) => playerController.TakeDamage(damageToTake);
-
-        public IEnumerator WaitForDeathVFX(float delay)
-        {
-            Debug.Log("1");
-            yield return new WaitForSeconds(delay);
-            GameService.Instance.GetUIService().EnableGameOverUI();
-        }
-       
     } 
 }

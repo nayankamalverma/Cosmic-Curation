@@ -21,8 +21,8 @@ MonoBehaviour:
   - powerUpType: 1
     powerUpPrefab: {fileID: 1206080465631374437, guid: 6483f380b8f5fd14a88f32d1997336a1,
       type: 3}
-    activeDuration: 10
+    activeDuration: 5
   - powerUpType: 2
     powerUpPrefab: {fileID: 5574365155469562999, guid: c549f35cc96a709499aba67719226e56,
       type: 3}
-    activeDuration: 10
+    activeDuration: 6

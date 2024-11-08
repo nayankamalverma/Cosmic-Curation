@@ -95,7 +95,7 @@ namespace CosmicCuration.Player
         { 
             BulletController bulletToFire = bulletPool.GetBullet();
             bulletToFire.ConfigureBullet(fireLocation);
-            GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerBullet);
+            SoundService.Instance.Play(SoundType.PlayerBullet);
         } 
       
         public void SetShieldState(ShieldState shieldStateToSet) => currentShieldState = shieldStateToSet;
@@ -121,14 +121,11 @@ namespace CosmicCuration.Player
             Object.Destroy(playerView.gameObject);
 
             GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.PlayerExplosion, playerView.transform.position);
-            GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerDeath);
-
+            SoundService.Instance.Play(SoundType.PlayerDeath);
             currentShootingState = ShootingState.NotFiring;
             GameService.Instance.GetEnemyService().SetEnemySpawning(false);
             GameService.Instance.GetPowerUpService().SetPowerUpSpawning(false);
-
-            // Wait for Player Ship Destruction.
-            playerView.WaitForDeathVFX(playerScriptableObject.deathDelay * 1000);
+            GameService.Instance.GetUIService().EnableGameOverUI(playerScriptableObject.deathDelay);
         }
 
         

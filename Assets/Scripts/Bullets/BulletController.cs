@@ -31,7 +31,7 @@ namespace CosmicCuration.Bullets
             if (collidedGameObject.GetComponent<IDamageable>() != null)
             {
                 collidedGameObject.GetComponent<IDamageable>().TakeDamage(bulletScriptableObject.damage);
-                GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.BulletHit);
+                SoundService.Instance.Play(SoundType.BulletHit);
                 GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.BulletHitExplosion, bulletView.transform.position);
                 GameService.Instance.GetPlayerService().ReturnBulletToPool(this);
                 bulletView.gameObject.SetActive(false);
